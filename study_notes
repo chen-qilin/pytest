@@ -1,0 +1,19 @@
+str()一般是将数值转成字符串。 
+repr()是将一个对象转成字符串显示
+
+2.【print"He's got %s eyes and %s hair." %(my_eyes,my_hair)】
+
+    多个变量时要用括号
+
+    运行结果是：He's got Bule eyes and Brown hair.
+
+    如果改成用%r,则会有单引号显示。
+
+    运行结果是：He's got 'Bule' eyes and 'Brown' hair.
+    
+    
+    如果输出string有用到换行\n关键字,用%s输出有换行效果,但如果用%r,则是直接输出\n字符,无换行效果
+    >>> repr(days)
+"'mon tue\\nadsf'"
+>>> str(days)
+'mon tue\nadsf'
