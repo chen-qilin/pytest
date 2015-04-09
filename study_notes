@@ -17,3 +17,5 @@ repr()是将一个对象转成字符串显示
 "'mon tue\\nadsf'"
 >>> str(days)
 'mon tue\nadsf'
+
+'\n'算一个字符len('\n')=1注意len('\\n')=2
