@@ -1,1 +1,2 @@
-命令行下输入：python -m CGIHTTPServer 在当前目录下启用web服务器，browser可以输入http://localhost:8000/helloworld.html访问
+（1）命令行下输入：python -m CGIHTTPServer [端口号]（缺省时，值为8000） 
+在当前目录下启用web服务器，browser可以输入http://localhost:8000/helloworld.html访问
