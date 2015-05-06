@@ -10,7 +10,7 @@ sender = 'chen_qilin@163.com'
 receiver = 'chen_qilin@163.com'
 subject = 'python email test'
 username = 'chen_qilin'
-password = 'chen@1101'
+password = '***************'
 
 msg = MIMEText('Hello World', 'plain')
 msg['Subject'] = Header(subject)
