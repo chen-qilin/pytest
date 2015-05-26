@@ -22,7 +22,7 @@ class AdvCGI(object):
             <H2>Advanced CGI Demo Form</H2>
             <FORM METHOD=post ACTION='%s' ENCTYPE='multipart/form-data'>
                 <H3>Cookie Setting</H3>
-                <L1><CODE><B>CPPuser=%s</B></CODE>
+                <LI><CODE><B>CPPuser=%s</B></CODE>
                 <H3>Enter cookie value<BR>
                 <INPUT NAME=cookie value=%s>(<I>optional</I>)</H3>
                 <H3>Enter your name<BR>
@@ -43,7 +43,6 @@ class AdvCGI(object):
     def getCPPCookies(self):
         # read cookies from client
         if environ.has_key('HTTP_COOKIE'):
-            print 1
             for eachCookie in map(strip, split(environ['HTTP_COOKIE'], ';')):
                 if len(eachCookie) > 6 and eachCookie[:3] == 'CPP':
                     tag = eachCookie[3:7]
@@ -51,6 +50,10 @@ class AdvCGI(object):
                         self.cookies[tag] = eval(unquote(eachCookie[8:]))
                     except (NameError, SyntaxError):
                         self.cookies[tag] = unquote(eachCookie[8:])
+            if not self.cookies.has_key('info'):
+                self.cookies['info'] = ''
+            if not self.cookies.has_key('user'):
+                self.cookies['user'] = ''
         else:
             self.cookies['info'] = self.cookies['user'] = ''
 
