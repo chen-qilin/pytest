@@ -19,3 +19,24 @@ repr()是将一个对象转成字符串显示
 'mon tue\nadsf'
 
 '\n'算一个字符len('\n')=1注意len('\\n')=2   a='\\n' a[0]='\\' a[1]=n
+一、datetime.timedelta 对象
+
+    class datetime.timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[, hours[, weeks]]]]]]])
+
+    All arguments are optional and default to 0. Arguments may be ints, longs, or floats, and may be positive（正） or negative（负）.
+
+    范围：   
+
+0 <= microseconds < 1000000
+0 <= seconds < 3600*24 (the number of seconds in one day)
+-999999999 <= days <= 999999999
+   
+
+    >>> datetime.timedelta.max
+    datetime.timedelta(999999999, 86399, 999999)
+
+    >>> datetime.timedelta.min
+    datetime.timedelta(-999999999)
+
+    >>> datetime.timedelta.resolution
+    datetime.timedelta(0, 0, 1)
