@@ -1,0 +1,164 @@
+参考博客：
+http://www.cnblogs.com/lhj588/archive/2012/04/23/2466653.html
+http://www.cnblogs.com/fclbky/articles/4098204.html
+参考资料：Python 2.7.7 documentation
+
+datetime模块学习
+
+Available Types：
+class datetime.date      理想化日期
+class datetime.time      理想化时间，假设每天是24*60*60 seconds（没有闰秒的概念）
+class datetime.datetime  包含日期和时间
+class datetime.timedelta 一种表达date、time和datetime实例之间的时间间隔。
+class datetime.tzinfo    时区信息对象的抽象基类，用于datetime和time类提供自定义时间概念（例如，时区和夏至时）。
+
+
+一、date Objects
+class datetime.date(year, month, day)
+	1）class methods：
+		date.today() 返回当前时间
+			>>> date.today()
+				datetime.date(2015, 6, 23)
+				
+		date.fromtimestamp(timestamp) 根据给定的时间戮，返回一个date对象；
+			>>> date.fromtimestamp(4564656)
+				datetime.date(1970, 2, 23)
+			>>> date.fromtimestamp(time.time())
+				datetime.date(2015, 6, 23)
+				
+		date.fromordinal(ordinal) 将Gregorian日历时间转换为date对象；
+			>>> date.fromordinal(1)
+				datetime.date(1, 1, 1)
+			>>> date.fromordinal(2000)
+				datetime.date(6, 6, 23)
+				
+	2）Class attributes：
+		date.min/max/resolution/year/month/day
+			>>> date.max
+				datetime.date(9999, 12, 31)
+		经常使用实例的year/month/day：
+			>>> date1=date.today()
+			>>> date1
+				datetime.date(2015, 6, 23)
+			>>> date1.year
+				2015
+	
+	3）Instance methods：
+		date.replace(year, month, day) 生成一个新的日期对象，用参数指定的年，月，日代替原有对象中的属性。（原有对象仍保持不变）
+		date.timetuple()：  返回日期对应的time.struct_time对象；
+			>>> date1.timetuple()
+				time.struct_time(tm_year=2015, tm_mon=6, tm_mday=23, tm_hour=0, tm_min=0, tm_sec
+				=0, tm_wday=1, tm_yday=174, tm_isdst=-1)
+		date.toordinal()：  返回日期对应的Gregorian Calendar日期；
+		date.weekday()：    Return the day of the week as an integer, where Monday is 0 and Sunday is 6.
+		date.isoweekday()： Return the day of the week as an integer, where Monday is 1 and Sunday is 7.
+		date.isocalendar()：返回格式如(year，month，day)的元组
+		date.isoformat()：  返回格式如'YYYY-MM-DD’的字符串		
+		date.__str__()：    For a date d, str(d) is equivalent to d.isoformat().
+			>>> str(date1)
+				'2015-06-23'
+			>>> date1.isoformat()
+				'2015-06-23'
+			>>> date1.__str__()
+				'2015-06-23'
+		date.ctime() 返回特定格式的字符串
+			>>> date1.ctime()
+				'Tue Jun 23 00:00:00 2015'
+		date.strftime(format)：  自定义格式化字符串，format具体规则见strftime() and strptime() Behavior
+		date.__format__(format): Same as date.strftime(). 
+		
+二、 time Objects
+class datetime.time([hour[, minute[, second[, microsecond[, tzinfo]]]]]) 
+	1）Class attributes
+		time.min/max/resolution
+		
+	2)Instance attributes (read-only):
+		time.hour/minute/second/microsecond/tzinfo
+	
+	3)Instance methods
+		time.replace([hour[, minute[, second[, microsecond[, tzinfo]]]]]) 
+		time.isoformat() 	
+		time.__str__() 
+		time.strftime(format) 
+		time.__format__(format) 
+		有tzinfo才有用的方法（看python手册的例子）：If tzinfo is None, returns None.
+			time.utcoffset() 
+			time.dst() 
+			time.tzname() 
+
+三、datetime Objects（看起来是：datetime = date + time）
+class datetime.datetime(year, month, day[, hour[, minute[, second[, microsecond[, tzinfo]]]]]) 
+	1）class methods			
+		datetime.today() 
+		datetime.now([tz])：Return the current local date and time，If optional argument tz is None or not specified, this is like today().
+		datetime.utcnow()： Return the current UTC date and time, with tzinfo None. 
+		datetime.fromtimestamp(timestamp[, tz])：根据时间戳创建一个datetime对象，参数tz指定时区信息
+		datetime.utcfromtimestamp(timestamp)
+		datetime.fromordinal(ordinal)
+		datetime.combine(date, time)：结合date和time，返回一个datetime对象；
+		★datetime.strptime(date_string, format):将格式字符串转换为datetime对象
+	
+	2)Class attributes
+		datetime.min/max/resolution
+		
+	3)Instance attributes (read-only)
+		datetime.year/month/day/hour/minute/second/microsecond/tzinfo
+		
+	4)Instance methods
+		datetime.date()：  获取date对象
+		datetime.time()：  获取time对象，不包括tzinfo
+		datetime.timetz() :获取time对象，包括tzinfo
+		datetime.replace([year[, month[, day[, hour[, minute[, second[, microsecond[, tzinfo]]]]]]]]) 
+		datetime.astimezone(tz) 传入一个新的 tzinfo 属性，返回根据新时区调整好的 datetime 对象
+		有tzinfo才有用的方法：
+			datetime.utcoffset() 
+			datetime.dst()
+			datetime.tzname()
+		datetime.timetuple() 
+		datetime.utctimetuple() 
+		datetime.toordinal() 
+		datetime.weekday()
+		datetime.isoweekday() 
+		datetime.isocalendar() : (ISO year, ISO week number, ISO weekday). 
+		datetime.__str__() 
+		datetime.isoformat([sep='T']):返回一个 ISO 8601 格式的日期字符串，日期和时间用sep连接
+			>>> datetime.today().isoformat(' ')
+				'2015-06-23 15:01:05.008000'
+			>>> datetime.today().isoformat('|')
+				'2015-06-23|15:01:11.875000'
+		datetime.ctime() 
+		datetime.strftime(format) 
+		datetime.__format__(format) 
+
+四、timedelta Objects
+class datetime.timedelta([days[, seconds[, microseconds[, milliseconds[, minutes[, hours[, weeks]]]]]]]) 
+	1）Class attributes 
+		timedelta.min/max/resolution
+	2)Instance attributes (read-only)
+		Attribute     Value 
+		days          Between -999999999 and 999999999 inclusive 
+		seconds       Between 0 and 86399 inclusive 
+		microseconds  Between 0 and 999999 inclusive 
+	3)Instance methods
+		timedelta.total_seconds() 
+
+五、tzinfo Objects（暂时不写，以后再看）
+六、一个小练习
+'''
+给出两个可识别格式的日期，计算出两个日期间隔的天数。
+输入：str1，str2    格式均为YYYY/MM/DD，如2013/08/06，入参合法性无需验证
+返回：int类型，并有正负数，当str1表达的日期在str2之前时返回值小于0
+'''
+#!-*- coding:UTF-8 -*-
+import datetime
+class Demo:
+    
+    def intervalDays(self, str1, str2):
+         data1 = datetime.datetime.strptime(str1, "%Y/%m/%d")
+         data2 = datetime.datetime.strptime(str2, "%Y/%m/%d")
+         delta = data1 - data2
+         return delta.days
+
+if __name__ == '__main__':
+    a=Demo()
+    print a.intervalDays('2013/08/06','2012/08/06')
