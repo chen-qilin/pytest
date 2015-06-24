@@ -1,0 +1,41 @@
+参考资料：Python 2.7.7 documentation
+参考工具：http://translate.google.cn/
+random模块学习
+
+一、Bookkeeping functions（几乎没看懂）
+	random.seed([x]) Initialize the basic random number generator
+	random.getstate() Return an object capturing the current internal state of the generator
+	random.setstate(state)
+	random.jumpahead(n) 
+	random.getrandbits(k) Returns a python long int with k random bits.
+		试了一下，2bit的long type（随机值0-3）
+		>>> print random.getrandbits(2)
+			0
+			试了一下，2bit的long type（随机值0-3）
+
+二、★Functions for integers（整数）
+	random.randrange(stop)
+	random.randrange(start, stop[, step]) 
+	random.randint(a, b) 
+
+三、★Functions for sequences（序列）
+	random.choice(seq) 返回非空序列的任一元素
+		>>> random.choice([1,'hello','world'])
+			'hello'
+	random.shuffle(x[, random]) 将序列的所有元素随机排序
+	random.sample(population, k) 从指定序列中随机获取指定长度的片断。sample函数不会修改原有序列。
+
+四、OMG我的概率论都还给老师了，这么多分布╮(╯▽╰)╭
+	★random.random()      在[0.0, 1.0)中返回随机浮点数。
+	★random.uniform(a, b) 在[a, b]中返回随机浮点数
+	random.triangular(low=0.0, high=1.0, mode=None) 
+	random.betavariate(alpha, beta) Beta分布
+	random.expovariate(lambd) 指数分布
+	random.gammavariate(alpha, beta) Gamma分布
+	random.gauss(mu, sigma) 高斯分布
+	random.lognormvariate(mu, sigma) Log normal分布
+	random.normalvariate(mu, sigma) Normal distribution正态分布
+	random.vonmisesvariate(mu, kappa) 
+	random.paretovariate(alpha) Pareto分布
+	random.weibullvariate(alpha, beta) Weibull分布
+
