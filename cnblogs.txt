@@ -2,6 +2,7 @@
 http://www.cnblogs.com/lhj588/archive/2012/04/23/2466653.html
 http://www.cnblogs.com/fclbky/articles/4098204.html
 参考资料：Python 2.7.7 documentation
+参考工具：http://translate.google.cn/
 
 datetime模块学习
 
