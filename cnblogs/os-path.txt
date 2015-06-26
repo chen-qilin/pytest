@@ -1,0 +1,72 @@
+参考博客：
+http://www.cnblogs.com/vamei/archive/2012/09/05/2671198.html
+http://www.cnblogs.com/baiqi/p/3951506.html
+http://www.cnblogs.com/sunnyjiangjie/p/4207063.html
+参考资料：Python 2.7.7 documentation
+参考工具：http://translate.google.cn/
+os.path和glob模块学习
+标★号的是我感觉重要的
+设置path = '/home/vamei/doc/file.txt'
+注意windos和linux下的结果可能不同
+
+一、os.path（常见的路径操作）
+	os.path.abspath(path) 返回path规范化的绝对路径。
+		windos：
+			>>> os.path.abspath(path)
+			'C:\\home\\vamei\\doc\\file.txt'
+		linux：
+			>>> os.path.abspath(path)
+			'/home/vamei/doc/file.txt'
+	★os.path.basename(path) 查询路径下包含的文件名
+		>>> os.path.basename(path)
+		'file.txt'
+	os.path.commonprefix(list) 返回list中，所有path共有的最长的路径。注意第二个例子，返回可能不是路径。
+		>>> os.path.commonprefix([path,'/home/','/home/he.txt'])
+		'/home/'
+		>>> os.path.commonprefix(['asdf1234','asdf50548'])
+		'asdf'	
+	★os.path.dirname(path) 返回路径名
+	┏★os.path.exists(path) 如果path存在返回True;如果path不存在，或者没有执行os.stat()的权限，或者已损坏的链接会返回False
+	看的其他博客解释，链接什么的没验证过
+	┗os.path.lexists(path) 与os.path.exists(path)的不同是如果有损坏的链接会返回True
+	os.path.expanduser(path) 把path中包含的"~"和"~user"转换成用户目录；看python手册吧
+	os.path.expandvars(path) 根据环境变量name的值替换path中包含的$name 和${name}
+	os.path.getatime(path) 返回最后一次进入此path的时间。
+	★os.path.getmtime(path) 返回此path最后一次修改的时间
+	os.path.getctime(path) 返回ctime，(类 Unix) time of the last change； Windows, is the creation time for path
+	★os.path.getsize(path) 返回path大小，单位byte
+	★os.path.isabs(path) 判断是否绝对路径
+	★os.path.isfile(path) 判断路径是否为已存在常规文件，注意，会先判断存在性
+	★os.path.isdir(path)  判断路径是否为已存在目录，注意，会先判断存在性
+	★os.path.islink(path) 判断路径是否为link
+	★os.path.ismount(path) 判断路径是否为挂载点
+	★os.path.join(path1[, path2[, ...]]) 使用目录名和文件名构成一个路径字符串，自动使用分隔符os.sep
+		>>> os.path.join('C:\\','mydoc','xxx','my.txt')
+		'C:\\mydoc\\xxx\\my.txt'
+	os.path.normcase(path) 转换path的大小写和斜杠
+	os.path.normpath(path) 规范path字符串形式
+	os.path.realpath(path) 
+	os.path.relpath(path[, start]) 从start开始计算相对路径
+	os.path.samefile(path1, path2) 判断目录或文件是否相同
+	os.path.sameopenfile(fp1, fp2) 判断fp1和fp2是否指向同一文件
+	os.path.samestat(stat1, stat2) 判断stat tuple stat1和stat2是否指向同一个文件
+	★os.path.split(path) 把路径分割成dirname和basename，返回一个元组
+	os.path.splitdrive(path) 返回驱动器名和路径组成的元组
+		>>> os.path.splitdrive('c:\\mydoc\\my.txt')
+		('c:', '\\mydoc\\my.txt')
+	os.path.splitext(path) 分割路径，返回路径名和文件扩展名的元组
+		>>> os.path.splitext(path)
+		('/home/vamei/doc/file', '.txt')
+	os.path.splitunc(path) 把路径分割为加载点与文件
+	os.path.walk(path, visit, arg) 遍历path，进入每个目录都调用visit函数，visit函数必须有
+									3个参数(arg, dirname, names)，dirname表示当前目录的目录名，
+									names代表当前目录下的所有文件名，args则为walk的第三个参数
+	os.path.supports_unicode_filenames 设置是否支持unicode路径名
+
+二、★glob（Unix style pathname pattern expansion）
+	只支持通配符操作*,?,[]这三个通配符
+	glob.glob(pathname) 列出所有符合该表达式的文件
+		>>> glob.glob('D:\Email\*')
+		['D:\\Email\\Archive 2013-11.pst', 'D:\\Email\\outlook.ost', 'D:\\Email\\~outloo
+		k.ost.tmp']
+	glob.iglob(pathname) 获取一个glob.glob(pathname)的可遍历对象
